@@ -7,63 +7,37 @@ import { useState } from 'react';
 
 import { setUser, setUserList } from "../Redux/Action";
 import { useDispatch, useSelector } from 'react-redux';
-export default function SignIn({ navigation }) {
+export default function LogIn({ navigation }) {
     //redux
     var dispatch = useDispatch()
     var { user, userList } = useSelector((state) => state.zalochat)
 
-    var [name, setName] = useState('');
     var [phone, setPhone] = useState('');
     var [pass, setPass] = useState('');
     function isFormValid() {
         return (
-            name.trim() !== '' &&
             phone.trim() !== '' &&
             pass.trim() !== ''
         );
     }
-    function handleSignin() {
-        if(userList.find((u)=>u.phone==phone)){
-            alert('Số điện thoại đã đăng ký')
+    function handleLogin() {
+        var checkU=userList.find((u)=>u.phone==phone && u.pass==pass)
+        if(checkU){
+            dispatch(setUser(checkU))
+            alert('Đăng nhập thành công')
+            navigation.navigate('Home')
         }else{
-            dispatch(setUser({
-                id: 4,
-                username: name,
-                phone: phone,
-                pass: pass,
-                mess: []
-            }))
-            dispatch(setUserList())
-            navigation.navigate('LogIn')
+            alert('Vui lòng kiểm tra lại thông tin đăng nhập')
         }
     }
-    function handleLogin() {
-        navigation.navigate('LogIn')
+    function handleSignin() {
+        navigation.navigate('SignIn')
     }
-
-    function isPhoneValid() {
-        return /^0\d{9,11}$/.test(phone);
-    }
-
-    function isPasswordValid() {
-        // Kiểm tra mật khẩu phải từ 8 ký tự trở lên và phải chứa ít nhất một chữ số
-        return pass.length >= 8 && /\d/.test(pass);
-    }
-    console.log(userList)
+    // console.log(userList)
     return (
         <View style={styles.container}>
             <Image style={styles.logo} source={require('./img/logo.png')} />
-            <Text style={styles.title}>Create account</Text>
-            <View style={styles.input}>
-                <FontAwesome name="user-o" size={24} color="black" style={styles.icon} />
-                <TextInput
-                    style={styles.inputText}
-                    placeholder="Tên người dùng"
-                    placeholderTextColor="black"
-                    value={name}
-                    onChangeText={(text) => setName(text)}
-                />
-            </View>
+            <Text style={styles.title}>Login</Text>
             <View style={styles.input}>
                 <MaterialCommunityIcons name="phone-settings-outline" size={24} color="black" style={styles.icon} />                <TextInput
                     style={styles.inputText}
@@ -72,7 +46,6 @@ export default function SignIn({ navigation }) {
                     value={phone}
                     onChangeText={(text) => setPhone(text)} />
             </View>
-            {!isPhoneValid() && <Text style={styles.errorText}>Số điện thoại không hợp lệ</Text>}
             <View style={styles.input}>
                 <MaterialIcons name="lock-outline" size={24} color="black" style={styles.icon} />
                 <TextInput
@@ -83,16 +56,16 @@ export default function SignIn({ navigation }) {
                     onChangeText={(text) => setPass(text)} 
                     secureTextEntry/>
             </View>
-            {!isPasswordValid() && <Text style={styles.errorText}>Mật khẩu phải từ 8 ký tự trở lên và chứa ít nhất 1 chữ số</Text>}
             <TouchableOpacity style={isFormValid() ? styles.button : styles.buttonDisabled}
-                disabled={!isFormValid()} onPress={()=>handleSignin()}>
-                <Text style={styles.buttonText}>ĐĂNG KÝ TÀI KHOẢN</Text>
+                disabled={!isFormValid()}
+                onPress={()=>handleLogin()}>
+                <Text style={styles.buttonText}>ĐĂNG NHẬP</Text>
             </TouchableOpacity>
 
             <View style={styles.bottomTitle}>
-                <Text style={styles.bottomText}>Đã có tài khoản? </Text>
-                <TouchableOpacity onPress={()=>handleLogin()}>
-                    <Text style={styles.bottomText2}>Đăng nhập</Text>
+                <Text style={styles.bottomText}>Chưa có tài khoản? </Text>
+                <TouchableOpacity onPress={()=>handleSignin()}>
+                    <Text style={styles.bottomText2}>Đăng ký</Text>
                 </TouchableOpacity>
             </View>
 
@@ -162,12 +135,5 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 700,
         color: '#0068FF'
-    },
-    errorText: {
-        width:200,
-        color: 'red',
-        marginLeft:-90,
-        marginBottom:10,
-        marginTop:-30,
-    },
+    }
 });
