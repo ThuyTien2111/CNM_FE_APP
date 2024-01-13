@@ -55,9 +55,8 @@ Màn hình này hiển thị danh sách tin nhắn và có tính năng tìm ki�
 ## Hướng Dẫn Cài Đặt và Chạy
 
 1. Clone repository về máy tính: `git clone https://github.com/ThuyTien2111/CNM_FE_APP.git`
-2. Di chuyển vào thư mục project: `cd zalochat`
-3. Cài đặt các dependencies: `npm install`
-4. Chạy ứng dụng: `npm run webweb`
+2. Cài đặt các dependencies: `npm install`
+3. Chạy ứng dụng: `npm run web`
 
 ## Góp Ý và Đóng Góp
 
