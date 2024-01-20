@@ -3,13 +3,17 @@ import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList } 
 import { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 
-import { setUser, setUserList } from "../Redux/Action";
+import { setUser, setUserList, setMess, setMessRead } from "../Redux/Action";
 import { useDispatch, useSelector } from 'react-redux';
 export default function Home({ navigation }) {
     //redux
     var dispatch = useDispatch()
-    var { user, userList } = useSelector((state) => state.zalochat)
-
+    var { user, userList, mess } = useSelector((state) => state.zalochat)
+    function handleReadMess(i){
+        dispatch(setMess(i))
+        dispatch(setMessRead())
+    }
+    // console.log(user)
     return (
         <View style={styles.container}>
             <View style={styles.input}>
@@ -22,12 +26,12 @@ export default function Home({ navigation }) {
                 data={user.mess}
                 keyExtractor={(item) => item.from}
                 renderItem={({ item }) => (
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>handleReadMess(item)}>
                         <View style={styles.mess}>
                             <Image style={styles.logo} source={{ uri: item.avt }} />
                             <View style={styles.messContent}>
                                 <Text style={styles.title}>{item.from}</Text>
-                                <Text style={styles.messText}>{item.message}</Text>
+                                <Text style={item.read==false?styles.messTextUnread:styles.messText}>{item.message}</Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -69,8 +73,12 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '400',
     },
+    messTextUnread: {
+        fontSize: 20,
+        fontWeight: '700',
+    },
     input: {
-        width: 445,
+        width: 'auto',
         height: 70,
         flexDirection: 'row',
         backgroundColor: '#408BF8',
@@ -111,11 +119,11 @@ const styles = StyleSheet.create({
     },
     bottomText: {
         fontSize: 16,
-        fontWeight: 500
+        fontWeight: '500'
     },
     bottomText2: {
         fontSize: 16,
-        fontWeight: 700,
+        fontWeight: '700',
         color: '#0068FF'
     }
 });
