@@ -7,6 +7,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
+import { Octicons } from '@expo/vector-icons';
 
 import { useState } from 'react';
 
@@ -53,8 +54,8 @@ export default function Phone({ navigation }) {
 
         return friend;
     }
-    var bestFrArray=user.friend.filter((f)=>f.bestfr==true)
-    var notBestFrArray=user.friend.filter((f)=>f.bestfr==false)
+    var bestFrArray = user.friend.filter((f) => f.bestfr == true)
+    var notBestFrArray = user.friend.filter((f) => f.bestfr == false)
     var friendArray = convertArrayFormat(notBestFrArray);
 
     const renderItem = ({ item }) => (
@@ -70,9 +71,9 @@ export default function Phone({ navigation }) {
                         <AntDesign name="videocamera" size={24} color="black" />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.callButton}
-                    onPress={()=>handleBestFr(item)}>
-                        {item.bestfr ==true? <AntDesign name="star" size={24} color="gold" />:
-                        <AntDesign name="staro" size={24} color="black" />}
+                        onPress={() => handleBestFr(item)}>
+                        {item.bestfr == true ? <AntDesign name="star" size={24} color="gold" /> :
+                            <AntDesign name="staro" size={24} color="black" />}
                     </TouchableOpacity>
                 </View>
 
@@ -80,7 +81,7 @@ export default function Phone({ navigation }) {
         </TouchableOpacity>
 
     );
-    function handleBestFr(fr){
+    function handleBestFr(fr) {
         dispatch(setBestFriend(fr))
         dispatch(addNewBestFriend())
     }
@@ -103,15 +104,37 @@ export default function Phone({ navigation }) {
         </TouchableOpacity>
 
     );
+    const renderOnlItem = ({ item }) => (
+        <TouchableOpacity>
+            <View style={styles.contactContainer}>
+                <Image source={{ uri: item.avt }} style={styles.avatar} />
+                <Text style={styles.callText}>{truncateString(item.name, 10)}</Text>
+                <View style={styles.callContainer3}>
+                    <TouchableOpacity style={styles.callButton}>
+                        <Feather name="phone-call" size={24} color="black" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.callButton}>
+                        <AntDesign name="videocamera" size={24} color="black" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.callButton}>
+                        <Octicons name="dot-fill" size={24} color="green" />
+
+                    </TouchableOpacity>
+                </View>
+
+            </View>
+        </TouchableOpacity>
+
+    );
 
     const renderSectionHeader = ({ section: { title } }) => (
         <View style={styles.sectionHeader}>
             <Text style={styles.sectionHeaderText}>{title}</Text>
         </View>
     );
-    
+
     return (
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
             <View style={styles.input}>
                 <AntDesign name="search1" size={24} color="white" style={styles.searchIcon} />
                 <TouchableOpacity>
@@ -135,7 +158,7 @@ export default function Phone({ navigation }) {
             </View>
             {content == "friend" &&
 
-                <View>
+                <ScrollView>
                     <View style={styles.friendContainer}>
                         <TouchableOpacity style={styles.friendButton}>
                             <FontAwesome5 name="user-friends" size={24} color="#408BF8" style={styles.friendIcon} />
@@ -177,14 +200,15 @@ export default function Phone({ navigation }) {
                             }
                             {user.friend.length != 0 &&
                                 <View>
-                                    <View style={{flexDirection:'row'}}>
-                                    <AntDesign name="star" size={24} color="gold" style={styles.bestFrIcon} />
+                                    <View style={{ flexDirection: 'row', paddingVertical: 10 }}>
+                                        <AntDesign name="star" size={24} color="gold" style={styles.bestFrIcon} />
                                         <Text style={styles.bestFrText}>Bạn thân</Text>
                                     </View>
                                     <FlatList
                                         data={bestFrArray}
                                         keyExtractor={(item) => item.name}
                                         renderItem={renderItem}
+                                       
                                     />
                                     <SectionList
                                         sections={friendArray}
@@ -209,18 +233,18 @@ export default function Phone({ navigation }) {
                                     <FlatList
                                         data={onlArray}
                                         keyExtractor={(item) => item.name}
-                                        renderItem={renderFlatItem}
+                                        renderItem={renderOnlItem}
                                     />
                                 </View>
                             }
                         </View>
                     }
-                </View>
+                </ScrollView>
 
 
             }
             {content == "group" &&
-                <View>
+                <ScrollView>
                     <View style={styles.friendContainer}>
                         <TouchableOpacity style={styles.friendButton}>
                             <MaterialIcons name="group-add" size={35} color="#408BF8" style={styles.friendIcon} />
@@ -246,11 +270,11 @@ export default function Phone({ navigation }) {
                             />
                         </View>
                     }
-                </View>
+                </ScrollView>
 
 
             }
-        </ScrollView>
+        </View>
     );
 }
 
@@ -258,6 +282,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+        paddingVertical: 30
     },
     searchIcon: {
         alignSelf: 'center',
@@ -383,8 +408,8 @@ const styles = StyleSheet.create({
     },
     bestFrText: {
         fontWeight: 'bold',
-        fontSize:16,
-        paddingTop:5
+        fontSize: 16,
+        paddingTop: 2
     },
     callContainer: {
         flexDirection: 'row',
@@ -400,6 +425,12 @@ const styles = StyleSheet.create({
         marginLeft: 250
 
     },
+    callContainer3: {
+        flexDirection: 'row',
+        position: 'absolute',
+        justifyContent: 'flex-start',
+        marginLeft: 220
+    },
     callText: {
         fontSize: 20,
         fontWeight: '500'
@@ -407,10 +438,10 @@ const styles = StyleSheet.create({
     callButton: {
         paddingRight: 20
     },
-    bestFrIcon:{
-        paddingLeft:10,
-        paddingRight:15,
-        paddingBottom:10
+    bestFrIcon: {
+        paddingLeft: 10,
+        paddingRight: 15,
+        paddingBottom: 10
     },
 
 

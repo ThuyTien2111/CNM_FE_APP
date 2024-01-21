@@ -11,7 +11,8 @@ import LogIn from './Screen/LogIn';
 import Home from './Screen/Home';
 import Phone from './Screen/Phone';
 import Detail from './Screen/Detail';
-import Feed from './Screen/Feed'
+import Feed from './Screen/Feed';
+import OTP from './Screen/Otp';
 
 import { Provider } from 'react-redux';
 import { Fontisto } from '@expo/vector-icons';
@@ -71,6 +72,7 @@ function App() {
     <Provider store={Store}>
       <NavigationContainer>
         <Stack.Navigator>
+        {/* <Stack.Screen name="Otp" component={OTP} options={{ headerShown: false }} /> */}
         {/* <Stack.Screen name="Home" component={TabNavigate} options={{ headerShown: false }} /> */}
           <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
           <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false }} />

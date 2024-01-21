@@ -124,7 +124,7 @@ export default function SignIn({ navigation }) {
             {!isPasswordAgainValid() && <Text style={styles.errorText}>Nhập lại mật khẩu phải giống mật khẩu</Text>}
             <View style={styles.inputDate}>
                 <SafeAreaProvider>
-                    <View style={{ justifyContent: 'center', flex: 1, alignItems: 'center' }}>
+                    <View style={{ justifyContent: 'center', flex: 1, alignItems: 'center'}}>
                         <DatePickerInput
                             locale="en"
                             label="Ngày sinh"
@@ -133,7 +133,7 @@ export default function SignIn({ navigation }) {
                             inputMode="start"
                             mode='outlined'
                             endYear={new Date().getFullYear()-18} //giới hạn độ tuổi
-                            // activeOutlineColor='#0068FF'
+                            activeOutlineColor='#0068FF'
                             outlineColor='#0068FF'
                          />
                     </View>
@@ -188,6 +188,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingBottom: 10,
         marginBottom: 35,
+        paddingTop:15
 
     },
     bottomTitle: {

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList, ScrollView } from 'react-native';
 import { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 
@@ -15,7 +15,7 @@ export default function Home({ navigation }) {
     }
     // console.log(user)
     return (
-        <View style={styles.container}>
+        <View style={styles.container} >
             <View style={styles.input}>
                 <AntDesign name="search1" size={24} color="white" style={styles.searchIcon} />
                 <TouchableOpacity>
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+        paddingVertical:30
     },
     searchIcon: {
         alignSelf: 'center',

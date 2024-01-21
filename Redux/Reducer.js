@@ -40,6 +40,34 @@ const initState = {
                     read: false
 
                 },
+                {
+                    from: 'Duong 2',
+                    avt: 'https://i.imgur.com/rAY1VxR.png',
+                    message: 'Okayyyyy ',
+                    read: false
+
+                },
+                {
+                    from: 'Duong 3',
+                    avt: 'https://i.imgur.com/rAY1VxR.png',
+                    message: 'Okayyyyy ',
+                    read: false
+
+                },
+                {
+                    from: 'Duong 4',
+                    avt: 'https://i.imgur.com/rAY1VxR.png',
+                    message: 'Okayyyyy ',
+                    read: false
+
+                },
+                {
+                    from: 'Duong 5',
+                    avt: 'https://i.imgur.com/rAY1VxR.png',
+                    message: 'Okayyyyy ',
+                    read: false
+
+                },
 
             ],
             friend: [
