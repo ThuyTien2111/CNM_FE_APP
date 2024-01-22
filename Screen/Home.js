@@ -18,7 +18,7 @@ export default function Home({ navigation }) {
         <View style={styles.container} >
             <View style={styles.input}>
                 <AntDesign name="search1" size={24} color="white" style={styles.searchIcon} />
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>navigation.navigate("Search")}>
                     <Text style={styles.inputText}>Tìm kiếm.. </Text>
                 </TouchableOpacity>
             </View>

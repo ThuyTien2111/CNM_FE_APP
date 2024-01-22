@@ -13,6 +13,8 @@ import Phone from './Screen/Phone';
 import Detail from './Screen/Detail';
 import Feed from './Screen/Feed';
 import OTP from './Screen/Otp';
+import Request from './Screen/Request';
+import Search from './Screen/Search';
 
 import { Provider } from 'react-redux';
 import { Fontisto } from '@expo/vector-icons';
@@ -68,15 +70,25 @@ function App() {
       </Tab.Navigator>
     )
   }
+  
   return (
     <Provider store={Store}>
       <NavigationContainer>
         <Stack.Navigator>
         {/* <Stack.Screen name="Otp" component={OTP} options={{ headerShown: false }} /> */}
         {/* <Stack.Screen name="Home" component={TabNavigate} options={{ headerShown: false }} /> */}
+        {/* <Stack.Screen name="Search" component={Search} options={{ headerShown: false }} /> */}
           <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
           <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false }} />
           <Stack.Screen name="Home" component={TabNavigate} options={{ headerShown: false }} />
+          <Stack.Screen name="Request" component={Request} options={{ headerShown: true, 
+            title:"Lời mời kết bạn", 
+            headerStyle:{
+              backgroundColor:"#408BF8"
+            },
+            headerTintColor:"white"
+            }} />
+          <Stack.Screen name="Search" component={Search} options={{ headerShown: false }} />
           {/* Các màn hình khác nếu cần */}
         </Stack.Navigator>
       </NavigationContainer>

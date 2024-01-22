@@ -137,7 +137,7 @@ export default function Phone({ navigation }) {
         <View style={styles.container}>
             <View style={styles.input}>
                 <AntDesign name="search1" size={24} color="white" style={styles.searchIcon} />
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>navigation.navigate("Search")}>
                     <Text style={styles.inputText}>Tìm kiếm.. </Text>
                 </TouchableOpacity>
             </View>
@@ -160,7 +160,7 @@ export default function Phone({ navigation }) {
 
                 <ScrollView>
                     <View style={styles.friendContainer}>
-                        <TouchableOpacity style={styles.friendButton}>
+                        <TouchableOpacity onPress={() => navigation.navigate("Request")} style={styles.friendButton}>
                             <FontAwesome5 name="user-friends" size={24} color="#408BF8" style={styles.friendIcon} />
                             <Text style={styles.fiendText}>Lời mời kết bạn</Text>
                         </TouchableOpacity>
@@ -191,36 +191,39 @@ export default function Phone({ navigation }) {
                             <Text style={type == 'onl' ? styles.activeFilterText : styles.filterText}>Mới truy cập {onlArray.length}</Text>
                         </TouchableOpacity>
                     </View>
-                    {type == "all" &&
-                        <View>
-                            {user.friend.length == 0 &&
-                                <View>
-                                    <Text style={{ alignSelf: 'center', paddingTop: 20 }}>Bạn chưa có bạn bè nào</Text>
-                                </View>
-                            }
-                            {user.friend.length != 0 &&
-                                <View>
-                                    <View style={{ flexDirection: 'row', paddingVertical: 10 }}>
-                                        <AntDesign name="star" size={24} color="gold" style={styles.bestFrIcon} />
-                                        <Text style={styles.bestFrText}>Bạn thân</Text>
+                    {type === "all" && (
+                        user.friend ? (
+                            <View>
+                                {user.friend.length === 0 && (
+                                    <View>
+                                        <Text style={{ alignSelf: 'center', paddingTop: 20 }}>Bạn chưa có bạn bè nào</Text>
                                     </View>
-                                    <FlatList
-                                        data={bestFrArray}
-                                        keyExtractor={(item) => item.name}
-                                        renderItem={renderItem}
-                                       
-                                    />
-                                    <SectionList
-                                        sections={friendArray}
-                                        keyExtractor={(item, index) => item + index}
-                                        renderItem={renderItem}
-                                        renderSectionHeader={renderSectionHeader}
-                                    />
-                                </View>
-                            }
+                                )}
+                                {user.friend.length !== 0 && (
+                                    <View>
+                                        <View style={{ flexDirection: 'row', paddingVertical: 10 }}>
+                                            <AntDesign name="star" size={24} color="gold" style={styles.bestFrIcon} />
+                                            <Text style={styles.bestFrText}>Bạn thân</Text>
+                                        </View>
+                                        <FlatList
+                                            data={bestFrArray}
+                                            keyExtractor={(item) => item.name}
+                                            renderItem={renderItem}
+                                        />
+                                        <SectionList
+                                            sections={friendArray}
+                                            keyExtractor={(item, index) => item + index}
+                                            renderItem={renderItem}
+                                            renderSectionHeader={renderSectionHeader}
+                                        />
+                                    </View>
+                                )}
+                            </View>
+                        ) : (
+                            <Text>Loading...</Text> // Hoặc hiển thị thông báo tạm thời cho người dùng
+                        )
+                    )}
 
-                        </View>
-                    }
                     {type == "onl" &&
                         <View>
                             {user.friend.length == 0 &&
@@ -271,7 +274,6 @@ export default function Phone({ navigation }) {
                         </View>
                     }
                 </ScrollView>
-
 
             }
         </View>

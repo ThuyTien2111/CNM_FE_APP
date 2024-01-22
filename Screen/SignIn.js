@@ -45,7 +45,11 @@ export default function SignIn({ navigation }) {
                 mess: [],
                 friend:[],
                 group:[],
-                birthdate:date
+                birthdate:date,
+                reqEarn:[],
+                reqSend:[],
+                searched:[],
+                avt: 'https://i.imgur.com/iJLDGpZ.png',
             }))
             dispatch(setUserList())
             navigation.navigate('LogIn')
